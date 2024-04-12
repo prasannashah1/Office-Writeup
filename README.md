@@ -44,6 +44,92 @@ I am using Kerbrute for user enumeration on Active Directory
 
 <img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/4b347624-0901-4794-80ca-f35e1050fcb8 height=300 width=1000> <br>
 
+I saved the usernames in a text file and used the password obtained from Joomla vulnerability to try to login to the SMB.
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/97f52e57-f69b-4a1b-91e1-f363b1434c6c height=250 width=1000> <br>
+
+Here, we can see that the user <b>dwolfe</b> can login to SMB and access it using smbclient.
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/69666f30-d48a-4cd5-8a4c-f8a2b428047b height=200 width=1000><br>
+
+There's a pcap file inside. I downloaded it and opened it in wireshark. After spending some time, I found the packet number 1917 with protocol krb5. After reading this article https://vbscrub.com/2020/02/27/getting-passwords-from-kerberos-pre-authentication-packets/, I got pretty good understanding of converting this info to kerberos hash type.
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/04830c82-1767-483f-a6d4-f6239d8c398b height=500 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/25a8f2dd-74ae-4008-8acc-9c81289ebfa8 height=30 width=1000><br>
+
+Now we can crack this hash using hashcat
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/cc5257a7-a6a7-4191-a715-3fb9e52e79a8 height=500 width=1000> <br>
+
+I tried to login to the Joomla admin panel using username administrator and the cracked password and got logged in successfully.
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/3c287f5d-039c-4454-b738-409cc9882414 height=500 width=1000><br>
+
+I then used pownyshell to get reverse shell by editing site template index.php file with pownyshell. This got me a reverse shell in the web application itself. I downloaed nc64.exe file and tried to get the reverse shell to my local machine.
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/015c1f47-1925-48d5-9f28-8825ace1766e height=500 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/6a24f481-29fa-45f4-9e19-f2fd519a9b98 height=500 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/ac7505b1-24b3-4a6c-b406-34b918f5b75f height=400 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/825c4210-baf2-4261-bb4e-46079370d6ad height=200 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/7d0b0f9a-7194-492e-a3ab-f53ccc0d5609 height=200 width=1000><br>
+
+After I got the reverse shell to my local machine, I tried to enter into the user folder, but ther was no permission to do so. So, I tried to get another privileged reverse shell using RunasCs.
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/084097c0-cf29-4ecd-a3f0-e714dd66859a height=330 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/7688c791-0413-460d-bbe7-01241fb09544 height=160 width=1000><br>
+
+<img src=https://github.com/prasannashah1/Office-Writeup/assets/28432698/a15f30a1-bb4f-423e-b3fa-bc1544c9a8a9 height=90 width=1000><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
